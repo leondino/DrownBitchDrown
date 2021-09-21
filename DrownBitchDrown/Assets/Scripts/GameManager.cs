@@ -12,15 +12,17 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool isHighTide;
 
-    private float tideTimer = 0;
+    private float tideTimer;
     private int lowTideDuration = 5;
     private int highTideDuration = 7;
+
+    private bool hasSecondChance;
 
     // Start is called before the first frame update
     void Start()
     {
-        isHighTide = false;
         instance = this;
+        ResetGame();
     }
 
     // Update is called once per frame
@@ -35,6 +37,33 @@ public class GameManager : MonoBehaviour
             {
                 tideTimer = 0;
                 // Check if player in correct field then switch tides.
+                switch (thePlayer.tag)
+                {
+                    case "rood":
+                        // Game over
+                        Debug.Log("Game over");
+                        ResetGame();
+                        break;
+                    case "geel":
+                        // Get progression, but next time game over
+                        if (hasSecondChance)
+                        {
+                            Debug.Log("Gele kaart!");
+                            hasSecondChance = false;
+                            SwitchTide();
+                        }
+                        else
+                        {
+                            Debug.Log("Game over");
+                            ResetGame();
+                        }
+                        break;
+                    case "groen":
+                        // Get progression 
+                        SwitchTide();
+                        Debug.Log("Good Job!");
+                        break;
+                }
             }
         }
 
@@ -66,5 +95,12 @@ public class GameManager : MonoBehaviour
             thePlayer.SetActive(true);
             thePlayer.transform.position = startPosition.transform.position;
         }
+    }
+
+    private void ResetGame()
+    {
+        isHighTide = false;
+        hasSecondChance = true;
+        tideTimer = 0;
     }
 }

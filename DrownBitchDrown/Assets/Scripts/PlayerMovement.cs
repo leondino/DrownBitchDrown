@@ -19,6 +19,16 @@ public class PlayerMovement : MonoBehaviour
     {
         velocity.x = Input.GetAxis("Horizontal");
         velocity.y = Input.GetAxis("Vertical");
+    }
+
+    private void FixedUpdate()
+    {
+        // Set positions for movement
         gameObject.transform.position += velocity * speed;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        gameObject.tag = other.gameObject.tag;
     }
 }
