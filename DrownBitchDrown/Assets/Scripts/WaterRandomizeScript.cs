@@ -8,15 +8,18 @@ public class WaterRandomizeScript : MonoBehaviour
     [SerializeField]
     private GameObject[] sectionsList;
 
-    [Header("Sea Types")]
     [SerializeField]
-    private GameObject[] waterPrefabList;
+    private Material[] waterMaterials;
+
+    private int[] sectionType;
+
+    Material finalMat;
 
     // Start is called before the first frame update
     void Start()
     {
-        
         gameObject.GetComponent<GameObject>();
+        sectionType = new int[sectionsList.Length];
     }
 
     // Update is called once per frame
@@ -30,27 +33,56 @@ public class WaterRandomizeScript : MonoBehaviour
 
     private void Swap()
     {
-        SwapWaterPrefabs(waterPrefabList);
+        SwapWaterPrefabs(sectionsList);
     }
 
-    private void SwapWaterPrefabs(GameObject[] prefabs)
+    private void SwapWaterPrefabs(GameObject[] sections)
     {
+        Debug.Log("Click");
+
+        for (int i = 0; i < sectionType.Length; i++)
+        {
+            sectionType[i] = 0;
+        }
+
+        int randomSection = Random.Range(0, sections.Length);
+
+        sectionType[randomSection] = 1; //rood
+
+        if (randomSection > 0)
+        {
+            sectionType[randomSection - 1] = 2; //geel
+        }
+        if (randomSection < 3)
+        {
+            sectionType[randomSection + 1] = 2; //geel
+        }
+
+        for (int i = 0; i < sectionType.Length; i++)
+        {
+            if (sectionType[i] == 0)
+            {
+                sectionType[i] = 3; //groen
+            }
+
+            Debug.Log("Number is = " + sectionType[i]);
+        }
+
         for (int i = 0; i < sectionsList.Length; i++)
         {
-            // Find a random index
-            int destIndex = Random.Range(0, prefabs.Length);
-            GameObject source = prefabs[i];
-            GameObject dest = prefabs[destIndex];
-
-            // If is not identical
-            if (source != dest)
+            switch (sectionType[i])
             {
+                case 1: sections[i].tag = "rood";
+                    break;
 
-                // Swap the position
-                source.transform.position = dest.transform.position;
+                case 2: sections[i].tag = "geel";
+                    break;
 
-                // Swap the array item
-                prefabs[i] = prefabs[destIndex];
+                case 3: sections[i].tag = "groen";
+                    break;
+
+                default:
+                    break;
             }
         }
     }
