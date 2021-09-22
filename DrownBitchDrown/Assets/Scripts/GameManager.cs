@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public GameObject thePlayer;
     public GameObject startPosition;
+    public TowerColor towers;
+    private WaterRandomizeScript waterRandomizer;
 
     public static GameManager instance;
 
@@ -22,6 +24,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         instance = this;
+        waterRandomizer = gameObject.GetComponent<WaterRandomizeScript>();
         ResetGame();
     }
 
@@ -86,6 +89,7 @@ public class GameManager : MonoBehaviour
         {
             thePlayer.SetActive(false);
             isHighTide = false;
+            setElements();
         }
 
         // All code for switching to high tide
@@ -102,5 +106,15 @@ public class GameManager : MonoBehaviour
         isHighTide = false;
         hasSecondChance = true;
         tideTimer = 0;
+        setElements();
+    }
+
+    private void setElements()
+    {
+        waterRandomizer.Swap();
+        for (int iSection = 0; iSection < waterRandomizer.sectionsList.Length; iSection++)
+        {
+            towers.ChangeTower(waterRandomizer.sectionsList[iSection].tag, iSection);
+        }
     }
 }

@@ -5,8 +5,7 @@ using UnityEngine;
 public class WaterRandomizeScript : MonoBehaviour
 {
     [Header("Sections")]
-    [SerializeField]
-    private GameObject[] sectionsList;
+    public GameObject[] sectionsList;
 
     [SerializeField]
     private Material[] waterMaterials;
@@ -31,7 +30,7 @@ public class WaterRandomizeScript : MonoBehaviour
         }
     }
 
-    private void Swap()
+    public void Swap()
     {
         SwapWaterPrefabs(sectionsList);
     }
