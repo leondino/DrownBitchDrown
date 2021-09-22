@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 218988941}
   - component: {fileID: 218988940}
+  - component: {fileID: 218988942}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -154,6 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thePlayer: {fileID: 1548307536}
   startPosition: {fileID: 755662860}
+  towers: {fileID: 1319319394}
   isHighTide: 0
 --- !u!4 &218988941
 Transform:
@@ -169,6 +171,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &218988942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 218988939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5d4d32041c980244b4c5a19bf124451, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sectionsList:
+  - {fileID: 671627667}
+  - {fileID: 2141431468}
+  - {fileID: 1558425246}
+  - {fileID: 993192308}
+  waterMaterials: []
 --- !u!1001 &277819082
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -624,6 +644,17 @@ Transform:
   m_Father: {fileID: 1564844075}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &1319319394 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1878023757464470110, guid: 6b72e075faf0f484f989605de882ff4e, type: 3}
+  m_PrefabInstance: {fileID: 277819082}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32ced110dea7c9243a05a71bf63bcc9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1548307536
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,7 +890,6 @@ GameObject:
   - component: {fileID: 1564844075}
   - component: {fileID: 1564844074}
   - component: {fileID: 1564844073}
-  - component: {fileID: 1564844072}
   - component: {fileID: 1564844071}
   - component: {fileID: 1564844070}
   - component: {fileID: 1564844069}
@@ -923,24 +953,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 0.33158347, z: 0}
   m_Center: {x: 0, y: 0.14406517, z: 4.999986}
---- !u!114 &1564844072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1564844067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5d4d32041c980244b4c5a19bf124451, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sectionsList:
-  - {fileID: 671627667}
-  - {fileID: 2141431468}
-  - {fileID: 1558425246}
-  - {fileID: 993192308}
-  waterMaterials: []
 --- !u!23 &1564844073
 MeshRenderer:
   m_ObjectHideFlags: 0
