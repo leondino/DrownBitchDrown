@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
                     case "rood":
                         // Game over
                         Debug.Log("Game over");
-                        UIManager.ChangeUI(messages[0]);
+                        UIManager.ChangeUI(messages[3]);
                         ResetGame();
                         break;
                     case "geel":
@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
                     case "groen":
                         // Get progression 
                         SwitchTide();
-                        UIManager.ChangeUI(messages[3]);
+                        UIManager.ChangeUI(messages[0]);
                         Debug.Log("Good Job!");
                         break;
                 }
@@ -122,8 +122,8 @@ public class GameManager : MonoBehaviour
         isHighTide = false;
         hasSecondChance = true;
         tideTimer = 0;
-        UIManager.StartGameUI();
         setElements();
+        UIManager.StartGameUI();
     }
 
     private void setElements()

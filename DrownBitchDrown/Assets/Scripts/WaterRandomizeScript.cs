@@ -18,20 +18,13 @@ public class WaterRandomizeScript : MonoBehaviour
     void Start()
     {
         gameObject.GetComponent<GameObject>();
-        sectionType = new int[sectionsList.Length];
+        //sectionType = new int[sectionsList.Length];
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Swap();
-        }
-    }
 
     public void Swap()
     {
+        sectionType = new int[sectionsList.Length];
         SwapWaterPrefabs(sectionsList);
     }
 
