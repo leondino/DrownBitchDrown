@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,15 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector]
     public bool isHighTide;
+    
+    [SerializeField, Header("UIMessages")]
+    private string[] messages;
+
+    [SerializeField, Header("UIMessages")]
+    private UIMessage UIManager;
+
+    [SerializeField, Header("Timer")]
+    private Text timer;
 
     private float tideTimer;
     private int lowTideDuration = 5;
@@ -32,6 +42,7 @@ public class GameManager : MonoBehaviour
         // All code for high tide gameplay
         if (isHighTide)
         {
+            timer.text = "Time Left: " + Mathf.RoundToInt(highTideDuration-tideTimer).ToString();
             // High tide timer
             if (tideTimer >= highTideDuration)
             {
@@ -42,6 +53,7 @@ public class GameManager : MonoBehaviour
                     case "rood":
                         // Game over
                         Debug.Log("Game over");
+                        UIManager.ChangeUI(messages[0]);
                         ResetGame();
                         break;
                     case "geel":
@@ -50,17 +62,20 @@ public class GameManager : MonoBehaviour
                         {
                             Debug.Log("Gele kaart!");
                             hasSecondChance = false;
+                            UIManager.ChangeUI(messages[1]);
                             SwitchTide();
                         }
                         else
                         {
                             Debug.Log("Game over");
+                            UIManager.ChangeUI(messages[2]);
                             ResetGame();
                         }
                         break;
                     case "groen":
                         // Get progression 
                         SwitchTide();
+                        UIManager.ChangeUI(messages[3]);
                         Debug.Log("Good Job!");
                         break;
                 }
@@ -70,6 +85,7 @@ public class GameManager : MonoBehaviour
         // All code for low tide gameplay
         else
         {
+            timer.text = "Time Left: "+Mathf.RoundToInt(lowTideDuration - tideTimer).ToString();
             // Low tide timer
             if (tideTimer >= lowTideDuration)
             {
@@ -102,5 +118,6 @@ public class GameManager : MonoBehaviour
         isHighTide = false;
         hasSecondChance = true;
         tideTimer = 0;
+        UIManager.StartGameUI();
     }
 }
