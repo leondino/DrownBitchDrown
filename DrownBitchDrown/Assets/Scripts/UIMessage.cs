@@ -11,7 +11,11 @@ public class UIMessage : MonoBehaviour
     [SerializeField, Header("TextObject")]
     private Text messageText;
 
+    [SerializeField, Header("GameManager")]
+    private GameManager gameManager;
+
     private bool UIOpen;
+    private bool gameOver;
 
     // Start is called before the first frame update
     private void Awake()
@@ -25,25 +29,44 @@ public class UIMessage : MonoBehaviour
         ChangeUI(startMessage);
     }
 
+    public void GameOverUI(string message)
+    {
+        ChangeUI(message);
+        gameOver = true;
+        gameManager.thePlayer.SetActive(false);
+    }
+
+    public void ResetGame()
+    {
+        if (gameOver)
+        {
+            gameOver = false;
+            gameManager.ResetGame();
+        }
+    }
+
     public void ChangeUI(string message)
     {
-        foreach (Transform child in transform)
+        if (!gameOver)
         {
-            if (child.name!= "TimerBackground")
+            foreach (Transform child in transform)
             {
-                child.gameObject.SetActive(UIOpen);
+                if (child.name != "TimerBackground")
+                {
+                    child.gameObject.SetActive(UIOpen);
+                }
             }
-        }
 
-        if (UIOpen)
-        {
-            messageText.text = message;
-            Time.timeScale = 0;
+            if (UIOpen)
+            {
+                messageText.text = message;
+                Time.timeScale = 0;
+            }
+            else
+            {
+                Time.timeScale = 1;
+            }
+            UIOpen = !UIOpen;
         }
-        else
-        {
-            Time.timeScale = 1;
-        }
-        UIOpen = !UIOpen;
     }
 }

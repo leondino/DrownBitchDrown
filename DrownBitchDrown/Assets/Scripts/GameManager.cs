@@ -56,8 +56,7 @@ public class GameManager : MonoBehaviour
                     case "rood":
                         // Game over
                         Debug.Log("Game over");
-                        UIManager.ChangeUI(messages[3]);
-                        ResetGame();
+                        UIManager.GameOverUI(messages[3]);
                         break;
                     case "geel":
                         // Get progression, but next time game over
@@ -71,8 +70,7 @@ public class GameManager : MonoBehaviour
                         else
                         {
                             Debug.Log("Game over");
-                            UIManager.ChangeUI(messages[2]);
-                            ResetGame();
+                            UIManager.GameOverUI(messages[2]);
                         }
                         break;
                     case "groen":
@@ -117,7 +115,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void ResetGame()
+    public void ResetGame()
     {
         isHighTide = false;
         hasSecondChance = true;
