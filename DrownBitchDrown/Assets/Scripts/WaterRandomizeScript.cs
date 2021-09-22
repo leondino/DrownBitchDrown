@@ -22,16 +22,35 @@ public class WaterRandomizeScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Swap();
+        }
     }
 
-    private void SwapWaterPrefabs()
+    private void Swap()
+    {
+        SwapWaterPrefabs(waterPrefabList);
+    }
+
+    private void SwapWaterPrefabs(GameObject[] prefabs)
     {
         for (int i = 0; i < sectionsList.Length; i++)
         {
-            foreach (GameObject waterPrefab in waterPrefabList)
+            // Find a random index
+            int destIndex = Random.Range(0, prefabs.Length);
+            GameObject source = prefabs[i];
+            GameObject dest = prefabs[destIndex];
+
+            // If is not identical
+            if (source != dest)
             {
 
+                // Swap the position
+                source.transform.position = dest.transform.position;
+
+                // Swap the array item
+                prefabs[i] = prefabs[destIndex];
             }
         }
     }
