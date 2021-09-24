@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public GameObject thePlayer;
     public GameObject startPosition;
     public TowerColor towers;
+    public Material[] oceanMaterials;
     private WaterRandomizeScript waterRandomizer;
 
     public static GameManager instance;
@@ -103,7 +104,8 @@ public class GameManager : MonoBehaviour
         {
             thePlayer.SetActive(false);
             isHighTide = false;
-            setElements();
+            SetElements();
+            SetWaterMaterials();
         }
 
         // All code for switching to high tide
@@ -112,6 +114,7 @@ public class GameManager : MonoBehaviour
             isHighTide = true;
             thePlayer.SetActive(true);
             thePlayer.transform.position = startPosition.transform.position;
+            SetWaterMaterials();
         }
     }
 
@@ -120,16 +123,66 @@ public class GameManager : MonoBehaviour
         isHighTide = false;
         hasSecondChance = true;
         tideTimer = 0;
-        setElements();
+        SetElements();
+        SetWaterMaterials();
         UIManager.StartGameUI();
     }
 
-    private void setElements()
+    private void SetElements()
     {
         waterRandomizer.Swap();
         for (int iSection = 0; iSection < waterRandomizer.sectionsList.Length; iSection++)
         {
             towers.ChangeTower(waterRandomizer.sectionsList[iSection].tag, iSection);
+        }
+    }
+
+    private void SetWaterMaterials()
+    {
+        foreach (GameObject section in waterRandomizer.sectionsList)
+        {
+            Material waterMaterial = null;
+            if (!isHighTide)
+            {
+                switch (section.tag)
+                {
+                    case "groen":
+                        waterMaterial = oceanMaterials[0];
+                        break;
+
+                    case "geel":
+                        waterMaterial = oceanMaterials[1];
+                        break;
+
+                    case "rood":
+                        waterMaterial = oceanMaterials[2];
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                switch (section.tag)
+                {
+                    case "groen":
+                        waterMaterial = oceanMaterials[3];
+                        break;
+
+                    case "geel":
+                        waterMaterial = oceanMaterials[4];
+                        break;
+
+                    case "rood":
+                        waterMaterial = oceanMaterials[5];
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            section.GetComponent<Renderer>().material = waterMaterial;
         }
     }
 }
