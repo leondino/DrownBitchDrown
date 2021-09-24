@@ -51,7 +51,7 @@ public class UIMessage : MonoBehaviour
         {
             foreach (Transform child in transform)
             {
-                if (child.name != "TimerBackground")
+                if (child.name != "TimerBackground" && child.name != "ScoreBackground")
                 {
                     child.gameObject.SetActive(UIOpen);
                 }

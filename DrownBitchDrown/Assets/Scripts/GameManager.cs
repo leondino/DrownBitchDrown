@@ -25,6 +25,10 @@ public class GameManager : MonoBehaviour
     [SerializeField, Header("Timer")]
     private Text timer;
 
+    [SerializeField, Header("Score")]
+    private Text score;
+    private int scoreAmount = 0;
+
     private float tideTimer;
     private int lowTideDuration = 5;
     private int highTideDuration = 7;
@@ -77,8 +81,16 @@ public class GameManager : MonoBehaviour
                     case "groen":
                         // Get progression 
                         SwitchTide();
-                        UIManager.ChangeUI(messages[0]);
-                        Debug.Log("Good Job!");
+                        AddScore();
+                        if (scoreAmount == 3)
+                        {
+                            UIManager.ChangeUI(messages[4]);
+                        }
+                        else
+                        {
+                            UIManager.ChangeUI(messages[0]);
+                        }
+                        Debug.Log("Good Job! " + scoreAmount);
                         break;
                 }
             }
@@ -123,6 +135,9 @@ public class GameManager : MonoBehaviour
         isHighTide = false;
         hasSecondChance = true;
         tideTimer = 0;
+        scoreAmount = 0;
+        score.text = "Score: " + scoreAmount;
+        towers.gameObject.SetActive(true);
         SetElements();
         SetWaterMaterials();
         UIManager.StartGameUI();
@@ -183,6 +198,17 @@ public class GameManager : MonoBehaviour
                 }
             }
             section.GetComponent<Renderer>().material = waterMaterial;
+        }
+    }
+
+    private void AddScore()
+    {
+        scoreAmount += 1;
+        score.text = "Score: " + scoreAmount;
+
+        if (scoreAmount == 3)
+        {
+            towers.gameObject.SetActive(false);
         }
     }
 }
